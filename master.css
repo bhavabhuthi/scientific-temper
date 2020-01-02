@@ -1,0 +1,51 @@
+body {
+  text-align: center;
+}
+
+.header{
+  width: 100vw;
+  top: 0;
+  left: 0;
+  position: fixed;
+}
+
+img{
+  height: 15vh;
+}
+
+.logo{
+  height: 15vh;
+  width: 50%;
+  float: left;
+  position: relative;
+}
+
+#type{
+  font-size: 4vw;
+  float: right;
+  width: 50%;
+  position: absolute;
+  right: 0;
+  height: 15vh;
+  margin: 0 auto;
+  line-height: 15vh;
+}
+
+#title {
+  font-size: 4vw;
+  margin-top: 18vh;
+  width: 100vw;
+  position: fixed;
+}
+
+#desc{
+  font-size: 2vw;
+  margin: 2vh;
+  margin-top: 30vh;
+}
+
+#example{
+  font-size: 2vw;
+  margin: 2vh;
+  margin-top: 5vh;
+}

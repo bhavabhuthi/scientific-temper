@@ -1,0 +1,18 @@
+{
+  "applications": {
+    "gecko": {
+      "strict_min_version": "58.0a1"
+    }
+  },
+  "icons": {
+  "48": "scientific-mind.svg",
+  "96": "scientific-mind.svg"
+  },
+  "chrome_url_overrides" : {
+  "newtab": "index.html"
+  },
+  "description": "A web extension which displays random fallacy/bias everytime user opens new tab page.",
+  "manifest_version": 2,
+  "name": "Scientific Temper",
+  "version": "0.1"
+}
