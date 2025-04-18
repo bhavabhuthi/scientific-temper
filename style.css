@@ -9,10 +9,11 @@ body {
 }
 
 .container {
+    z-index: 1;
     background-color: white;
     color: black;
     text-align: center;
-    padding: 20px;
+    padding: 40px;
     max-width: 800px;
     width: 90%;
     box-sizing: border-box;
@@ -43,10 +44,10 @@ body {
     margin-bottom: 20px;
 }
 
-.description,
+.info {
+    font-weight: bold;
+}
+
 .example {
-    padding: 15px;
-    width: 100%;
-    overflow-wrap: break-word;
-    text-align: left;
+    font-style: italic;
 }
