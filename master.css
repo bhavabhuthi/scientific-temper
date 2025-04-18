@@ -1,51 +1,113 @@
+/* General Styles */
 body {
   text-align: center;
+  margin: 0;
+  font-family: 'Roboto', sans-serif; /* Modern font */
+  color: #ffffff; /* White text */
+  background-color: #333;
+  overflow-x: hidden;
+  background-image: url("https://cc0textures.com/api/v1/download/63e2ff849c27076900750d29");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  position: relative; /* For absolute positioning of overlay */
+}
+
+/* Black Transparent Overlay */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6); /* Black with 60% opacity */
+  z-index: -1; /* Behind the content */
 }
 
 .header{
-  width: 100vw;
+  width: 100%;
   top: 0;
   left: 0;
   position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  z-index: 10; /* Ensure header is above overlay */
 }
 
 img{
-  height: 15vh;
+  height: 10vh;
+  transition: transform 0.3s ease;
+}
+
+img:hover {
+  transform: scale(1.1); 
 }
 
 .logo{
-  height: 15vh;
-  width: 50%;
-  float: left;
-  position: relative;
+  height: 10vh;
+  width: auto;
+  padding: 10px;
+
 }
 
 #type{
-  font-size: 4vw;
-  float: right;
-  width: 50%;
-  position: absolute;
-  right: 0;
-  height: 15vh;
+  font-size: 3vw;
+  
+  height: 10vh;
   margin: 0 auto;
-  line-height: 15vh;
+  line-height: 10vh;
+  padding: 10px;
+  font-weight: bold;
+  animation: fadeIn 1s ease-in;
 }
 
 #title {
-  font-size: 4vw;
-  margin-top: 18vh;
-  width: 100vw;
-  position: fixed;
+  font-size: 5vw;
+  margin-top: 20vh;
+  width: 100%;
+  position: relative;
+  animation: slideIn 1s ease-in;
+
 }
 
 #desc{
-  font-size: 2vw;
-  margin: 2vh;
-  margin-top: 30vh;
+  font-size: 2.5vw;
+  margin: 20px;
+  margin-top: 40vh;
+  line-height: 1.5;
+  animation: slideIn 1s ease-in;
 }
 
 #example{
   font-size: 2vw;
-  margin: 2vh;
-  margin-top: 5vh;
+  margin: 20px;
+  margin-top: 10vh;
+  line-height: 1.5;
+  animation: slideIn 1s ease-in;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  #type, #title, #desc, #example {
+    font-size: 4vw; /* Adjust font size for smaller screens */
+  }
+  img{
+    height: 8vh;
+  }
+  .logo{
+    height: 8vh;
+  }
+}
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideIn {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
 }
