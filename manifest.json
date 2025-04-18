@@ -9,8 +9,5 @@
   "chrome_url_overrides": {
     "newtab": "index.html"
   },
-  "background": {
-    "service_worker": "background.js"
-  },
   "description": "A web extension which displays random fallacy/bias everytime user opens new tab page."
 }
