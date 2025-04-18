@@ -20,31 +20,28 @@ document.addEventListener('DOMContentLoaded', () => {
   // Particle class
   class Particle {
     constructor(x, y, size, speedX, speedY, color) {
-      this.x = x;
-      this.y = y; 
-      this.z = Math.random() * 1 -0.5;
-      this.size = Math.random() * 8 + 1; // Random size between 1 and 9
-      this.baseX = x;
-      this.baseY = this.y;
-      this.density = Math.random() * 40 + 1;
-      this.color = color; // Set color when creating the particle
-      this.opacity = Math.random() * 0.7 + 0.3; // Random opacity between 0.3 and 1
-      this.speedX = (Math.random() * 4 - 2) * 0.1; // Random speed between -0.2 and 0.2
-      this.speedY = (Math.random() * 4 - 2) * 0.1; // Random speed between -0.2 and 0.2
-      this.speedZ = (Math.random() * 2 - 1) * 0.01; // Random speed between -0.01 and 0.01
-    }
+        this.x = x;
+        this.y = y;
+        this.size = Math.random() * 8 + 1;
+        this.baseX = x;
+        this.baseY = y;
+        this.density = Math.random() * 40 + 1;
+        this.color = color;
+        this.opacity = Math.random() * 0.7 + 0.3;
+        this.speedX = (Math.random() * 4 - 2) * 0.05; // Slight speed
+        this.speedY = (Math.random() * 4 - 2) * 0.05; // Slight speed
+      }
     draw() {
-      let particleSize = this.size - this.z * 0.2 ;
-      particleSize = Math.abs(particleSize)
       ctx.beginPath();
-      ctx.arc(this.x, this.y, Math.max(0, particleSize) , 0, Math.PI * 2);
-      ctx.fillStyle = `hsl(${this.color}, 100%, 50%, ${this.opacity})`; // Use hsl with opacity
+      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      ctx.fillStyle = `hsl(${this.color}, 100%, 50%, ${this.opacity})`;
       ctx.textBaseline = 'middle';
-
       ctx.fill()
     }
     update() {
       // Check for mouse collision and adjust position
+
+      //mouse reaction
       let dx = mouse.x - this.x;
       let dy = mouse.y - this.y;
       let distance = Math.sqrt(dx * dx + dy * dy);
@@ -56,25 +53,25 @@ document.addEventListener('DOMContentLoaded', () => {
       let directionY = forceDirectionY * force * this.density; 
 
       if (distance < mouse.radius) { 
-          this.x -= directionX / 2; 
-          this.y -= directionY / 2;
+          this.x -= directionX / 10; 
+          this.y -= directionY / 10;
       }
 
+      // Return to the base if pushed
       if (this.x !== this.baseX) {
         let dx = this.x - this.baseX;
-        this.x -= dx / 50;
+        this.x -= dx / 100;
       }
       if (this.y !== this.baseY) {
         let dy = this.y - this.baseY;
-        this.y -= dy / 50;
+        this.y -= dy / 100;
       }
+
+      // Apply base movement
       this.x += this.speedX;
       this.y += this.speedY;
 
-      // Bounce off walls
-      if (this.x + this.size > canvas.width || this.x - this.size < 0) {
-        this.speedX = -this.speedX * 0.9; // Reduce speed on bounce
-      }
+         // Bounce off walls
       if (this.y + this.size > canvas.height || this.y - this.size < 0) {
         this.speedY = -this.speedY * 0.9; // Reduce speed on bounce
       }
@@ -82,9 +79,6 @@ document.addEventListener('DOMContentLoaded', () => {
       this.z += this.speedZ;
       if (this.z > 0.5 || this.z < -0.5){
           this.speedZ = -this.speedZ;
-      }
-      if(this.size < 0){
-          this.size = 1;
       }
       this.draw();
 
@@ -106,10 +100,10 @@ document.addEventListener('DOMContentLoaded', () => {
       for (let b = a; b < particlesArray.length; b++) {
         let distance = Math.sqrt(
           (particlesArray[a].x - particlesArray[b].x) ** 2 +
-            (particlesArray[a].y - particlesArray[b].y) ** 2
+          (particlesArray[a].y - particlesArray[b].y) ** 2
         );
         if (distance < 100) {
-          opacity = 1 - distance / 100;
+          opacity = 1 - distance / 200;
           ctx.strokeStyle = `rgba(51,51,51,${opacity})`;
           ctx.lineWidth = 1;
           ctx.beginPath(); 
@@ -129,9 +123,8 @@ document.addEventListener('DOMContentLoaded', () => {
       particlesArray[i].update();
     }
     connect();
-
-     requestAnimationFrame(animate);
-  }
+    requestAnimationFrame(animate);
+ }
   animate();
   
   window.addEventListener('resize', () => {
