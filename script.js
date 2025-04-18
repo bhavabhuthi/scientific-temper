@@ -21,21 +21,24 @@ document.addEventListener('DOMContentLoaded', () => {
   class Particle {
     constructor(x, y, size, speedX, speedY, color) {
       this.x = x;
-      this.y = y;
+      this.y = y; 
+      this.z = Math.random() * 20 -10;
       this.size = Math.random() * 8 + 1; // Random size between 1 and 9
       this.baseX = this.x;
       this.baseY = this.y;
-      this.density = Math.random() * 30 + 1;
+      this.density = Math.random() * 40 + 1;
       this.color = color; // Set color when creating the particle
-      this.opacity = Math.random() * 0.5 + 0.3; // Random opacity between 0.3 and 0.8
-      this.speedX = Math.random() * 2 - 1; // Random speed between -1 and 1
-      this.speedY = Math.random() * 2 - 1; // Random speed between -1 and 1
+      this.opacity = Math.random() * 0.7 + 0.3; // Random opacity between 0.3 and 1
+      this.speedX = (Math.random() * 4 - 2) * 0.1; // Random speed between -0.2 and 0.2
+      this.speedY = (Math.random() * 4 - 2) * 0.1; // Random speed between -0.2 and 0.2
+      this.speedZ = (Math.random() * 2 - 1) * 0.01; // Random speed between -0.01 and 0.01
     }
     draw() {
+      let particleSize = this.size - this.z * 0.2 ;
       ctx.beginPath();
-      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      ctx.arc(this.x, this.y, particleSize , 0, Math.PI * 2);
       ctx.fillStyle = `rgba(${this.color}, ${this.opacity})`; // Use rgba with opacity
-      ctx.fill();
+      ctx.fill()
     }
     update() {
       // Check for mouse collision and adjust position
@@ -43,26 +46,25 @@ document.addEventListener('DOMContentLoaded', () => {
       let dy = mouse.y - this.y;
       let distance = Math.sqrt(dx * dx + dy * dy);
       let forceDirectionX = dx / distance;
-      let forceDirectionY = dy / distance;
-      let maxDistance = mouse.radius;
-      let force = (maxDistance - distance) / maxDistance;
-      let directionX = forceDirectionX * force * this.density;
-      let directionY = forceDirectionY * force * this.density;
+      let forceDirectionY = dy / distance; 
+      let maxDistance = mouse.radius; 
+      let force = (maxDistance - distance) / maxDistance ;
+      let directionX = forceDirectionX * force * this.density; 
+      let directionY = forceDirectionY * force * this.density; 
 
-      if (distance < mouse.radius) {
-        this.x -= directionX;
-        this.y -= directionY;
-      } else {
-        if (this.x !== this.baseX) {
-          let dx = this.x - this.baseX;
-          this.x -= dx / 10;
-        }
-        if (this.y !== this.baseY) {
-          let dy = this.y - this.baseY;
-          this.y -= dy / 10;
-        }
+      if (distance < mouse.radius) { 
+          this.x -= directionX / 2; 
+          this.y -= directionY / 2;
       }
-      // Update particle position
+
+      if (this.x !== this.baseX) {
+        let dx = this.x - this.baseX;
+        this.x -= dx / 50;
+      }
+      if (this.y !== this.baseY) {
+        let dy = this.y - this.baseY;
+        this.y -= dy / 50;
+      }
       this.x += this.speedX;
       this.y += this.speedY;
 
@@ -73,15 +75,18 @@ document.addEventListener('DOMContentLoaded', () => {
       if (this.y + this.size > canvas.height || this.y - this.size < 0) {
         this.speedY = -this.speedY * 0.9; // Reduce speed on bounce
       }
-      if (this.size < 0.2) {
+
+      this.z += this.speedZ;
+      if (this.z > 10 || this.z < -10){
+        this.speedZ = -this.speedZ;
+      }
+      if (this.size < 0.1) {
         //reset the values if the particles are too small
         this.x = Math.random() * canvas.width;
         this.y = Math.random() * canvas.height;
-        this.size = Math.random() * 8 + 1; // Random size between 1 and 9
-        this.speedX = Math.random() * 2 - 1; // Random speed between -1 and 1
-        this.speedY = Math.random() * 2 - 1; // Random speed between -1 and 1
       }
       this.draw();
+
     }
   }
   
@@ -103,10 +108,10 @@ document.addEventListener('DOMContentLoaded', () => {
             (particlesArray[a].y - particlesArray[b].y) ** 2
         );
         if (distance < 100) {
-          opacity = 1 - distance / 100;
-          ctx.strokeStyle = `rgba(255,255,255,${opacity})`;
+          opacity = 1 - distance / 100; 
+          ctx.strokeStyle = `rgba(51,51,51,${opacity})`;
           ctx.lineWidth = 1;
-          ctx.beginPath();
+          ctx.beginPath(); 
           ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
           ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
           ctx.stroke();
