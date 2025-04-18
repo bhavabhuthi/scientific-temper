@@ -25,6 +25,7 @@ body {
     justify-content: flex-start;
     max-width: 100%;
     align-items: center;
+    position: absolute;
 }
 
 .titleContainer {
