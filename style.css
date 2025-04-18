@@ -1,13 +1,14 @@
 body {
-    margin: 0;
+    margin: 30px;
     display: flex;
     justify-content: center;
     font-family: sans-serif;
     align-items: center;
     min-height: 100vh;
     background-color: #f0f0f0; /* Light gray background for the body */
+    box-sizing: border-box;
 }
-
+ 
 .container {
     z-index: 1;
     background-color: white;
@@ -21,7 +22,7 @@ body {
     text-align: center;
     flex-direction: column;
     justify-content: flex-start;
-    width: 800px;
+    max-width: 100%;
     align-items: center;
 }
 
@@ -50,6 +51,7 @@ body {
 }
 
 .description, .example{ word-wrap: break-word; padding: 20px; }
+.description, .example { box-sizing: border-box; width: 100%;}
 
 .example {
     font-style: italic;
