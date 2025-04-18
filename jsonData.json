@@ -1,6 +1,6 @@
 [
    {
-      "type":"fallacy",
+      "type": "fallacy",
       "title":"strawman",
       "description":"By exaggerating, misrepresenting, or just completely fabricating someone's argument, it's much easier to present your own position as being reasonable, but this kind of dishonesty serves to undermine honest rational&nbsp;debate.",
       "example":"After Will said that we should put more money into health and education, Warren responded by saying that he was surprised that Will hates our country so much that he wants to leave it defenceless by cutting military spending."
@@ -24,7 +24,7 @@
       "example":"Recognising that Amanda had committed a fallacy in arguing that we should eat healthy food because a nutritionist said it was popular, Alyse said we should therefore eat bacon double cheeseburgers every day."
    },
    {
-      "type":"fallacy",
+      "type": "fallacy",
       "title":"slippery slope",
       "description":"The problem with this reasoning is that it avoids engaging with the issue at hand, and instead shifts attention to extreme hypotheticals. Because no proof is presented to show that such extreme hypotheticals will in fact occur, this fallacy has the form of an appeal to emotion fallacy by leveraging fear. In effect the argument at hand is unfairly tainted by unsubstantiated&nbsp;conjecture.",
       "example":"Colin Closet asserts that if we allow same-sex couples to marry, then the next thing we know we'll be allowing people to marry their parents, their cars and even monkeys."
@@ -72,7 +72,7 @@
       "example":"When the judge asked the defendant why he hadn't paid his parking fines, he said that he shouldn't have to pay them because the sign said 'Fine for parking here' and so he naturally presumed that it would be fine to park there."
    },
    {
-      "type":"fallacy",
+      "type": "fallacy",
       "title":"the gambler's fallacy",
       "description":"This commonly believed fallacy can be said to have helped create an entire city in the desert of Nevada USA. Though the overall odds of a 'big run' happening may be low, each spin of the wheel is itself entirely independent from the last. So whilst there may be a very small chance that heads will come up 20 times in a row if you flip a coin, the chances of heads coming up on each individual flip remain 50/50, and aren't influenced by what happened before.",
       "example":"Red had come up six times in a row on the roulette wheel, so Greg knew that it was close to certain that black would be next up. Suffering an economic form of natural selection with this thinking, he soon lost all of his savings."
@@ -114,7 +114,7 @@
       "example":"Whilst rallying support for his plan to fundamentally undermine citizens' rights, the Supreme Leader told the people they were either on his side, or they were on the side of the enemy."
    },
    {
-      "type":"fallacy",
+      "type": "fallacy",
       "title":"begging the question",
       "description":"This logically incoherent argument often arises in situations where people have an assumption that is very ingrained, and therefore taken in their minds as a given. Circular reasoning is bad mostly because it's not very&nbsp;good.",
       "example":"The word of Zorbo the Great is flawless and perfect. We know this because it says so in The Great and Infallible Book of Zorbo's Best and Most Truest Things that are Definitely True and Should Not Ever Be Questioned."
@@ -138,7 +138,7 @@
       "example":"The makers of Sugarette Candy Drinks point to research showing that of the five countries where Sugarette drinks sell the most units, three of them are in the top ten healthiest countries on Earth, therefore Sugarette drinks are healthy."
    },
    {
-      "type":"fallacy",
+      "type": "fallacy",
       "title":"middle ground",
       "description":"Much of the time the truth does indeed lie between two extreme points, but this can bias our thinking: sometimes a thing is simply untrue and a compromise of it is also untrue. Half way between truth and a lie, is still a&nbsp;lie.",
       "example":"Holly said that vaccinations caused autism in children, but her scientifically well-read friend Caleb said that this claim had been debunked and proven false. Their friend Alice offered a compromise that vaccinations must cause some autism, just not all autism."

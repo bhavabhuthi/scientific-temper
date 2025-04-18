@@ -1,13 +1,16 @@
 {
+  "manifest_version": 3,
+  "name": "Scientific Temper",
+  "version": "0.1",
   "icons": {
     "48": "scientific-mind.svg",
     "96": "scientific-mind.svg"
   },
-  "chrome_url_overrides" : {
-  "newtab": "index.html"
+  "chrome_url_overrides": {
+    "newtab": "index.html"
   },
-  "description": "A web extension which displays random fallacy/bias everytime user opens new tab page.",
-  "manifest_version": 3,
-  "name": "Scientific Temper",
-  "version": "0.1"
+  "background": {
+    "service_worker": "background.js"
+  },
+  "description": "A web extension which displays random fallacy/bias everytime user opens new tab page."
 }
