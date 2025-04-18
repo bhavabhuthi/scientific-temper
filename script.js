@@ -22,9 +22,9 @@ document.addEventListener('DOMContentLoaded', () => {
     constructor(x, y, size, speedX, speedY, color) {
       this.x = x;
       this.y = y; 
-      this.z = Math.random() * 20 -10;
+      this.z = Math.random() * 1 -0.5;
       this.size = Math.random() * 8 + 1; // Random size between 1 and 9
-      this.baseX = this.x;
+      this.baseX = x;
       this.baseY = this.y;
       this.density = Math.random() * 40 + 1;
       this.color = color; // Set color when creating the particle
@@ -35,9 +35,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     draw() {
       let particleSize = this.size - this.z * 0.2 ;
+      particleSize = Math.abs(particleSize)
       ctx.beginPath();
-      ctx.arc(this.x, this.y, particleSize , 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(${this.color}, ${this.opacity})`; // Use rgba with opacity
+      ctx.arc(this.x, this.y, Math.max(0, particleSize) , 0, Math.PI * 2);
+      ctx.fillStyle = `hsl(${this.color}, 100%, 50%, ${this.opacity})`; // Use hsl with opacity
+      ctx.textBaseline = 'middle';
+
       ctx.fill()
     }
     update() {
@@ -77,13 +80,11 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       this.z += this.speedZ;
-      if (this.z > 10 || this.z < -10){
-        this.speedZ = -this.speedZ;
+      if (this.z > 0.5 || this.z < -0.5){
+          this.speedZ = -this.speedZ;
       }
-      if (this.size < 0.1) {
-        //reset the values if the particles are too small
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
+      if(this.size < 0){
+          this.size = 1;
       }
       this.draw();
 
@@ -108,7 +109,7 @@ document.addEventListener('DOMContentLoaded', () => {
             (particlesArray[a].y - particlesArray[b].y) ** 2
         );
         if (distance < 100) {
-          opacity = 1 - distance / 100; 
+          opacity = 1 - distance / 100;
           ctx.strokeStyle = `rgba(51,51,51,${opacity})`;
           ctx.lineWidth = 1;
           ctx.beginPath(); 
