@@ -1,8 +1,8 @@
 body {
     margin: 0;
-    font-family: sans-serif;
     display: flex;
     justify-content: center;
+    font-family: sans-serif;
     align-items: center;
     min-height: 100vh;
     background-color: #f0f0f0; /* Light gray background for the body */
@@ -12,16 +12,16 @@ body {
     z-index: 1;
     background-color: white;
     color: black;
-    text-align: center;
-    padding: 40px;
+    padding: 20px;
     max-width: 800px;
-    width: 90%;
     box-sizing: border-box;
     border-radius: 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     display: flex;
+    text-align: center;
     flex-direction: column;
     justify-content: center;
+    width: 90%;
     align-items: center;
 }
 
@@ -38,10 +38,14 @@ body {
 }
 
 .info {
-    padding: 10px;
-    width: 100%;
     overflow-wrap: break-word;
     margin-bottom: 20px;
+    padding: 10px;
+    width: 100%;
+
+}
+.description, .example{
+    overflow-y: auto;
 }
 
 .info {
