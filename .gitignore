@@ -1,0 +1,5 @@
+# Ignore all zip files
+*.zip
+
+# Ignore edito config files 
+.vscode
