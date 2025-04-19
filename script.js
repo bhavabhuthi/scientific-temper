@@ -22,8 +22,8 @@ document.addEventListener('DOMContentLoaded', () => {
     constructor(x, y, size, speedX, speedY, color) {
         this.x = x;
         this.y = y;
-        this.size = Math.random() * 2 + 1;
         this.baseX = x;
+        this.length = Math.random() * 2 + 1;
         this.baseY = y;
         this.density = Math.random() * 40 + 1;
         this.color = color;
@@ -31,15 +31,13 @@ document.addEventListener('DOMContentLoaded', () => {
         this.speedX = (Math.random() * 4 - 2) * 0.2; // Increased speed
         this.speedY = (Math.random() * 4 - 2) * 0.2; // Increased speed
       }
-      
-    draw() {      
-      if (this.size > 0.1){
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fillStyle = `hsl(${this.color}, 100%, 50%, ${this.opacity})`;
-        ctx.textBaseline = 'middle';
-        ctx.fill();
-      }
+
+    draw() {
+      ctx.beginPath(); 
+      ctx.moveTo(this.x, this.y); 
+      ctx.lineTo(this.x + this.length, this.y + this.length); 
+      ctx.strokeStyle = `hsl(${this.color}, 100%, 50%, ${this.opacity})`;
+      ctx.stroke();
     }
     update() {
       // Check for mouse collision and adjust position
@@ -74,19 +72,19 @@ document.addEventListener('DOMContentLoaded', () => {
       this.x += this.speedX;
       this.y += this.speedY;
 
-      if (this.y + this.size > canvas.height || this.y - this.size < 0) {this.speedY = -this.speedY * 0.9;}
-      if (this.x + this.size > canvas.width || this.x - this.size < 0) {this.speedX = -this.speedX * 0.9;}
+      if (this.y + this.length > canvas.height || this.y - this.length < 0) {this.speedY = -this.speedY * 0.9;}
+      if (this.x + this.length > canvas.width || this.x - this.length < 0) {this.speedX = -this.speedX * 0.9;}
 
            this.draw();
-      this.size -= 0.01;
+
     }
-  }
+  }  
 
 
 function init() {
     for (let i = 0; i < numberOfParticles * 2; i++) {
-      const x = Math.random() * (canvas.width - 100) + 50;
-      const y = Math.random() * (canvas.height - 100) + 50;
+      const x = Math.random() * (canvas.width - 100) + 50 + Math.random() * 20 - 10;
+      const y = Math.random() * (canvas.height - 100) + 50 + Math.random() * 20 - 10;
 
       const color = `${Math.random() * 360}, 100%, 50%`;
       particlesArray.push(new Particle(x, y, 0, 0, 0, color));
