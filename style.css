@@ -36,8 +36,13 @@ body {
 
 .titleContainer h1 {
     margin: 0;
-    font-size: 2.5em; /* Larger font for the title */
+    font-weight: bold;
+    font-size: 3em; /* Larger font for the title */
     overflow-wrap: break-word;
+    background: -webkit-linear-gradient(#0f2027, #203a43, #2c5364);
+    color: transparent;
+    background: linear-gradient(#0f2027, #203a43, #2c5364);
+    background-clip: text;
 }
 
 .info {
