@@ -85,11 +85,11 @@ document.addEventListener('DOMContentLoaded', () => {
         this.speedZ = -this.speedZ;
       }
       this.draw();
-      }
     }
   }
 
-  function init() {
+
+function init() {
     for (let i = 0; i < numberOfParticles * 2; i++) {
       const x = Math.random() * (canvas.width - 100) + 50;
       const y = Math.random() * (canvas.height - 100) + 50;
@@ -97,7 +97,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const color = `${Math.random() * 360}, 100%, 50%`;
       particlesArray.push(new Particle(x, y, 0, 0, 0, color));
     }
-  }
+  }  
+  
   function connect() {
     let opacity = 1;
     for (let a = 0; a < particlesArray.length; a++) {
