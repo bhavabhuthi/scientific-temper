@@ -20,17 +20,20 @@ document.addEventListener('DOMContentLoaded', () => {
   // Particle class
   class Particle {
     constructor(x, y, size, speedX, speedY, color) {
-      this.x = x;
-      this.y = y;
-      this.size = Math.random() * 8 + 1;
-      this.baseX = x;
-      this.baseY = y;
-      this.density = Math.random() * 40 + 1;
-      this.color = color;
-      this.opacity = Math.random() * 0.7 + 0.3;
-      this.speedX = (Math.random() * 4 - 2) * 0.05; // Slight speed
-      this.speedY = (Math.random() * 4 - 2) * 0.05; // Slight speed
-    }
+        this.x = x;
+        this.y = y;
+        this.size = Math.random() * 4 + 1;
+        this.baseX = x;
+        this.baseY = y;
+        this.density = Math.random() * 40 + 1;
+        this.color = color;
+        this.opacity = Math.random() * 0.7 + 0.3;
+        this.speedX = (Math.random() * 4 - 2) * 0.2; // Increased speed
+        this.speedY = (Math.random() * 4 - 2) * 0.2; // Increased speed
+        this.speedZ = Math.random() * 0.2 - 0.1;
+        this.z = 0;
+      }
+      
     draw() {
       ctx.beginPath();
       ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
@@ -60,11 +63,11 @@ document.addEventListener('DOMContentLoaded', () => {
       // Return to the base if pushed
       if (this.x !== this.baseX) {
         let dx = this.x - this.baseX;
-        this.x -= dx / 100;
+        this.x -= dx / 50;
       }
       if (this.y !== this.baseY) {
         let dy = this.y - this.baseY;
-        this.y -= dy / 100;
+        this.y -= dy / 50;
       }
 
       // Apply base movement
@@ -74,6 +77,9 @@ document.addEventListener('DOMContentLoaded', () => {
       // Bounce off walls
       if (this.y + this.size > canvas.height || this.y - this.size < 0) {
         this.speedY = -this.speedY * 0.9; // Reduce speed on bounce
+         // Bounce off top and bottom
+      if (this.y > canvas.height || this.y < 0) {
+        this.speedY = -this.speedY;
       }
 
       this.z += this.speedZ;
@@ -86,9 +92,9 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function init() {
-    for (let i = 0; i < numberOfParticles; i++) {
-      const x = Math.random() * canvas.width;
-      const y = Math.random() * canvas.height;
+    for (let i = 0; i < numberOfParticles * 2; i++) {
+      const x = Math.random() * canvas.width ;
+      const y = Math.random() * canvas.height ;
 
       const color = `${Math.random() * 360}, 100%, 50%`;
       particlesArray.push(new Particle(x, y, 0, 0, 0, color));
@@ -102,9 +108,9 @@ document.addEventListener('DOMContentLoaded', () => {
           (particlesArray[a].x - particlesArray[b].x) ** 2 +
           (particlesArray[a].y - particlesArray[b].y) ** 2
         );
-        if (distance < 100) {
-          opacity = 1 - distance / 200;
-          ctx.strokeStyle = `rgba(51,51,51,${opacity})`;
+        if (distance < 150) {
+          opacity = 1 - distance / 300;
+          ctx.strokeStyle = `rgba(221,221,221,${opacity})`; // Light gray connection lines
           ctx.lineWidth = 1;
           ctx.beginPath();
           ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
