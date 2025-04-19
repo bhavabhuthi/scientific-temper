@@ -30,8 +30,6 @@ document.addEventListener('DOMContentLoaded', () => {
         this.opacity = Math.random() * 0.7 + 0.3;
         this.speedX = (Math.random() * 4 - 2) * 0.2; // Increased speed
         this.speedY = (Math.random() * 4 - 2) * 0.2; // Increased speed
-        this.speedZ = Math.random() * 0.2 - 0.1;
-        this.z = 0;
       }
       
     draw() {
@@ -74,17 +72,10 @@ document.addEventListener('DOMContentLoaded', () => {
       this.x += this.speedX;
       this.y += this.speedY;
 
-      if (this.y + this.size > canvas.height || this.y - this.size < 0) {
-        this.speedY = -this.speedY * 0.9;
-      }
-      if (this.x + this.size > canvas.width || this.x - this.size < 0) {
-        this.speedX = -this.speedX * 0.9;
-      }
-      this.z += this.speedZ;
-      if (this.z > 0.5 || this.z < -0.5) {
-        this.speedZ = -this.speedZ;
-      }
-      this.draw();
+      if (this.y + this.size > canvas.height || this.y - this.size < 0) {this.speedY = -this.speedY * 0.9;}
+      if (this.x + this.size > canvas.width || this.x - this.size < 0) {this.speedX = -this.speedX * 0.9;}
+
+           this.draw();
     }
   }
 
