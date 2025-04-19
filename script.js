@@ -74,14 +74,12 @@ document.addEventListener('DOMContentLoaded', () => {
       this.x += this.speedX;
       this.y += this.speedY;
 
-      // Bounce off walls
       if (this.y + this.size > canvas.height || this.y - this.size < 0) {
-        this.speedY = -this.speedY * 0.9; // Reduce speed on bounce
-         // Bounce off top and bottom
-      if (this.y > canvas.height || this.y < 0) {
-        this.speedY = -this.speedY;
+        this.speedY = -this.speedY * 0.9;
       }
-
+      if (this.x + this.size > canvas.width || this.x - this.size < 0) {
+        this.speedX = -this.speedX * 0.9;
+      }
       this.z += this.speedZ;
       if (this.z > 0.5 || this.z < -0.5) {
         this.speedZ = -this.speedZ;
@@ -93,8 +91,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function init() {
     for (let i = 0; i < numberOfParticles * 2; i++) {
-      const x = Math.random() * canvas.width ;
-      const y = Math.random() * canvas.height ;
+      const x = Math.random() * (canvas.width - 100) + 50;
+      const y = Math.random() * (canvas.height - 100) + 50;
 
       const color = `${Math.random() * 360}, 100%, 50%`;
       particlesArray.push(new Particle(x, y, 0, 0, 0, color));
