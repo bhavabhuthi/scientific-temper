@@ -87,7 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
         this.speedZ = -this.speedZ;
       }
       this.draw();
-
+      }
     }
   }
 
