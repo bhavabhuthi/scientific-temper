@@ -1,5 +1,11 @@
 {
   "manifest_version": 3,
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "{15b6f974-a63e-423e-a609-97ca76e6edc0}",
+      "strict_min_version": "58.0"
+    }
+  },
   "name": "Scientific Temper",
   "version": "0.2.1",
   "icons": {
