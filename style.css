@@ -58,10 +58,12 @@ body {
   color: #ff6b6b;
 
   /* Safari/Chrome (WebKit) */
-  background: -webkit-linear-gradient(left, #ff9a9e, #fad0c4);
+    background: -webkit-linear-gradient(left, #ff9a9e, #fad0c4);
   -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+    
   /* Firefox */
   background: linear-gradient(to right, #ff9a9e, #fad0c4);
   -moz-background-clip: text;
@@ -69,8 +71,6 @@ body {
 
   /* Modern browsers (Chrome ≥16, Firefox ≥49, Edge) */
   background-clip: text;
-  color: transparent;
-
   animation: fadeIn 0.8s ease-in-out;
 }
 
