@@ -14,7 +14,8 @@ body {
   align-items: center;
   font-weight: normal;
   min-height: 100vh;
-  background-color: #f0f0f0; /* Light gray background for the body */
+  /* Light gray background for the body */
+  background-color: #f0f0f0;
   box-sizing: border-box;
 }
 
@@ -58,12 +59,12 @@ body {
   color: #ff6b6b;
 
   /* Safari/Chrome (WebKit) */
-    background: -webkit-linear-gradient(left, #ff9a9e, #fad0c4);
+  background: -webkit-linear-gradient(left, #ff9a9e, #fad0c4);
   -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    text-fill-color: transparent;
-    
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+
   /* Firefox */
   background: linear-gradient(to right, #ff9a9e, #fad0c4);
   -moz-background-clip: text;
@@ -88,7 +89,8 @@ body {
 }
 
 .thinking-emoji {
-  font-size: 1.2em; /* Adjust size as needed */
+  /* Adjust size as needed */
+  font-size: 1.2em;
 }
 
 .info {
@@ -116,12 +118,27 @@ body {
 
 .example {
   font-style: italic;
-  border-left: 3px solid #ff9a9e; /* Gradient accent color */
+  /* Gradient accent color */
+  border-left: 3px solid #ff9a9e;
   padding-left: 1rem;
-  color: #222; /* Darker for emphasis */
+  /* Darker for emphasis */
+  color: #222;
   overflow-wrap: break-word;
-  background: #f8f9fa; /* Light gray background */
+  /* Light gray background */
+  background: #f8f9fa;
   border-radius: 10px;
   box-sizing: border-box;
   width: 100%;
+}
+
+.refreshButton {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  border: none;
+  background: none;
+  font-size: 1.5em;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
 }
