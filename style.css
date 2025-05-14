@@ -1,3 +1,40 @@
+:root {
+  --particle-color: #ff6b6b;
+  --particle-connection: rgba(255, 107, 107, 0.3);
+  --background-color: #f0f0f0;
+  --container-bg: white;
+  --text-color: black;
+
+  /* Gradient text colors */
+  --gradient-start: #ff9a9e;
+  --gradient-end: #fad0c4;
+  --gradient-fallback: #ff6b6b;
+
+  /* Example box colors */
+  --example-bg: #f8f9fa;
+  --example-border: var(--gradient-start);
+  --example-text: #222;
+}
+
+/* Dark theme colors */
+[data-theme="dark"] {
+  --particle-color: #4fc3f7;
+  --particle-connection: rgba(79, 195, 247, 0.3);
+  --background-color: #1a1a1a;
+  --container-bg: #2d2d2d;
+  --text-color: #ffffff;
+
+  /* Dark theme gradient colors */
+  --gradient-start: #4fc3f7;
+  --gradient-end: #abe3fd;
+  --gradient-fallback: #4fc3f7;
+
+  /* Dark theme example box */
+  --example-bg: #2a2a2a;
+  --example-border: var(--gradient-start);
+  --example-text: #f0f0f0;
+}
+
 body {
   font-family: "Albert Sans", sans-serif;
   margin: 0;
@@ -6,15 +43,16 @@ body {
   align-items: center;
   font-weight: normal;
   min-height: 100vh;
-  /* Light gray background for the body */
-  background-color: #f0f0f0;
+  background-color: var(--background-color);
   box-sizing: border-box;
+  color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .container {
   z-index: 10;
-  background-color: white;
-  color: black;
+  background-color: var(--container-bg);
+  color: var(--text-color);
   padding: 20px;
   /* max-width: 800px; */
   width: 1000px;
@@ -27,6 +65,7 @@ body {
   justify-content: flex-start;
   align-items: center;
   position: absolute;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 @media screen and (max-width: 1024px) {
   .container {
@@ -46,25 +85,35 @@ body {
   font-size: 60px;
   overflow-wrap: break-word;
   text-shadow: 0 2px 10px rgba(255, 154, 158, 0.2);
+  animation: fadeIn 0.8s ease-in-out;
 
   /* Fallback solid color */
-  color: #ff6b6b;
+  color: var(--gradient-fallback);
 
-  /* Safari/Chrome (WebKit) */
-  background: -webkit-linear-gradient(left, #ff9a9e, #fad0c4);
+  /* Gradient text for WebKit browsers (Safari, Chrome) */
+  background: -webkit-linear-gradient(
+    left,
+    var(--gradient-start),
+    var(--gradient-end)
+  );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+
+  /* Standard gradient text */
+  background: linear-gradient(
+    to right,
+    var(--gradient-start),
+    var(--gradient-end)
+  );
   background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent;
   text-fill-color: transparent;
 
-  /* Firefox */
-  background: linear-gradient(to right, #ff9a9e, #fad0c4);
-  -moz-background-clip: text;
+  /* Ensure text remains visible in all browsers */
+  color: var(--gradient-fallback);
+  -webkit-text-fill-color: transparent;
   -moz-text-fill-color: transparent;
-
-  /* Modern browsers (Chrome ≥16, Firefox ≥49, Edge) */
-  background-clip: text;
-  animation: fadeIn 0.8s ease-in-out;
 }
 
 @keyframes fadeIn {
@@ -110,17 +159,17 @@ body {
 
 .example {
   font-style: italic;
-  /* Gradient accent color */
-  border-left: 3px solid #ff9a9e;
-  padding-left: 1rem;
-  /* Darker for emphasis */
-  color: #222;
+  border-left: 3px solid var(--example-border);
+  padding: 1rem 1rem 1rem 1.5rem;
+  color: var(--example-text);
   overflow-wrap: break-word;
-  /* Light gray background */
-  background: #f8f9fa;
+  background: var(--example-bg);
   border-radius: 10px;
   box-sizing: border-box;
   width: 100%;
+  transition: background-color 0.3s ease, border-color 0.3s ease,
+    color 0.3s ease;
+  margin: 0.5rem 0;
 }
 
 .refreshButton {
