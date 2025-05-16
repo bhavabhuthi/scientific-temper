@@ -3,3 +3,8 @@
 
 # Ignore edito config files 
 .vscode
+
+# Ignore node_modules and package-lock.json
+node_modules
+package-lock.json
+package.json
