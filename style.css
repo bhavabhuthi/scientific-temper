@@ -1,6 +1,6 @@
 :root {
-  --particle-color: #ff6b6b;
-  --particle-connection: rgba(255, 107, 107, 0.3);
+  --particle-color: #ff868610;
+  --particle-connection: #1a1a1a;
   --background-color: #f0f0f0;
   --container-bg: white;
   --text-color: black;
@@ -19,7 +19,7 @@
 /* Dark theme colors */
 [data-theme="dark"] {
   --particle-color: #4fc3f7;
-  --particle-connection: rgba(79, 195, 247, 0.3);
+  --particle-connection: #4fc3f733;
   --background-color: #1a1a1a;
   --container-bg: #2d2d2d;
   --text-color: #ffffff;
@@ -55,7 +55,7 @@ body {
   color: var(--text-color);
   padding: 20px;
   /* max-width: 800px; */
-  width: 1000px;
+  width: 60%;
   box-sizing: border-box;
   border-radius: 10px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -116,7 +116,6 @@ body {
   background-clip: text;
   -moz-background-clip: text;
   -webkit-text-fill-color: transparent;
-  text-fill-color: transparent;
 
   /* Ensure text remains visible in all browsers */
   color: var(--gradient-fallback);
@@ -151,8 +150,8 @@ body {
 }
 
 .refreshButton {
-  margin: 0;
-  /* margin-left: auto; */
+  /* margin: 0; */
+  margin-left: auto;
   border: none;
   background: none;
   font-size: 1.5em;
