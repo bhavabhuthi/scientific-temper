@@ -8,3 +8,11 @@
 node_modules
 package-lock.json
 package.json
+
+
+# Ignore AMO signed files
+.amo-upload-uuid
+
+
+# Ignore artifacts folder
+web-ext-artifacts
