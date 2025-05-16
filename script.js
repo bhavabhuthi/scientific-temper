@@ -1,4 +1,4 @@
-let ctx, numberOfParticles = 150, particlesArray = [];
+let ctx, numberOfParticles = 75, particlesArray = [];
 
 
 //----------------------------------------------------------------------------------------------------
