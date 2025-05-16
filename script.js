@@ -188,18 +188,25 @@ document.addEventListener('DOMContentLoaded', () => {
       })
   }
 
-  // Theme switching function
-  function setupThemeToggle() {
-
-
-  }
-
-  // Initialize everything
+  // Initialize background particle animation
   init();
   animate();
-  setupThemeToggle();
+
   // Load content on initial page load
   loadContent();
+
+  // Theme setup
+  try {
+    const savedTheme = localStorage.getItem('extensionTheme');
+    if (savedTheme) {
+      document.documentElement.setAttribute('data-theme', savedTheme);
+    } else {
+      document.documentElement.setAttribute('data-theme', 'light');
+    }
+  } catch (error) {
+    document.documentElement.setAttribute('data-theme', 'light');
+    console.error('Error loading saved theme:', error);
+  }
 
   // Event Listener to update mouse position
   window.addEventListener('mousemove', (event) => {
@@ -218,11 +225,18 @@ document.addEventListener('DOMContentLoaded', () => {
   // Event listener to load content on click of refresh button
   refreshButton.addEventListener('click', loadContent);
 
+  // Event listener to toggle theme
   themeToggle.addEventListener('click', () => {
     const html = document.documentElement;
     const currentTheme = html.getAttribute('data-theme');
     const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+    // Set the new theme
     html.setAttribute('data-theme', newTheme);
+
+    // Save the new theme to localStorage
+    localStorage.setItem('extensionTheme', newTheme);
+
     // Force redraw of canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height);
   });
