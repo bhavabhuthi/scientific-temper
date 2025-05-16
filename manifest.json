@@ -8,6 +8,9 @@
   },
   "name": "Scientific Temper",
   "version": "0.3.0",
+  "license": "GPL-3.0",
+  "requires_payment": false,
+  "homepage": "https://github.com/bhavabhuthi/scientific-temper",
   "icons": {
     "48": "scientific-mind.svg",
     "96": "scientific-mind.svg"
@@ -15,5 +18,5 @@
   "chrome_url_overrides": {
     "newtab": "index.html"
   },
-  "description": "A web extension which displays random fallacy/bias everytime user opens new tab page."
+  "description": "A web extension which displays random logical fallacy/cognitive bias everytime user opens new tab page."
 }
