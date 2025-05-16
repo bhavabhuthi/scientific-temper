@@ -12,6 +12,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const descriptionElement = document.querySelector('.description');
   const refreshButton = document.getElementById('refreshButton')
 
+  const themeToggle = document.getElementById('themeToggle');
+
   // Canvas setup for particle effects
   const canvas = document.getElementById('particleCanvas');
   ctx = canvas.getContext('2d');
@@ -47,11 +49,11 @@ document.addEventListener('DOMContentLoaded', () => {
       ctx.beginPath();
       ctx.moveTo(this.x, this.y);
       ctx.lineTo(this.x + this.length, this.y + this.length);
-      
+
       // Use CSS variable for particle color with opacity
       const particleColor = getComputedStyle(document.documentElement)
         .getPropertyValue('--particle-color').trim();
-      
+
       // Convert hex to rgba if needed
       if (particleColor.startsWith('#')) {
         const r = parseInt(particleColor.slice(1, 3), 16);
@@ -62,7 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // If it's already rgb/rgba, just append the opacity
         ctx.strokeStyle = particleColor.replace(')', `, ${this.opacity})`).replace('rgb', 'rgba');
       }
-      
+
       ctx.stroke();
     }
 
@@ -129,7 +131,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function connect() {
     let opacity = 1;
     const connectionColor = getCssVar('--particle-connection');
-    
+
     for (let a = 0; a < particlesArray.length; a++) {
       for (let b = a; b < particlesArray.length; b++) {
         let distance = Math.sqrt(
@@ -139,10 +141,10 @@ document.addEventListener('DOMContentLoaded', () => {
         if (distance < 150) {
           opacity = 1 - distance / 300;
           // Extract RGB values from the CSS variable and apply opacity
-          const rgba = connectionColor.startsWith('rgba') ? 
-            connectionColor : 
+          const rgba = connectionColor.startsWith('rgba') ?
+            connectionColor :
             `${connectionColor}${Math.round(opacity * 1000) / 1000}`.replace(')', `, ${opacity})`);
-          
+
           ctx.strokeStyle = rgba;
           ctx.lineWidth = 1;
           ctx.beginPath();
@@ -188,28 +190,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Theme switching function
   function setupThemeToggle() {
-    const themeToggle = document.createElement('button');
-    themeToggle.textContent = '🌓';
-    themeToggle.style.position = 'fixed';
-    themeToggle.style.top = '20px';
-    themeToggle.style.right = '20px';
-    themeToggle.style.background = 'none';
-    themeToggle.style.border = 'none';
-    themeToggle.style.fontSize = '24px';
-    themeToggle.style.cursor = 'pointer';
-    themeToggle.style.zIndex = '1000';
-    themeToggle.title = 'Toggle dark/light mode';
-    
-    themeToggle.addEventListener('click', () => {
-      const html = document.documentElement;
-      const currentTheme = html.getAttribute('data-theme');
-      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-      html.setAttribute('data-theme', newTheme);
-      // Force redraw of canvas
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-    });
-    
-    document.body.appendChild(themeToggle);
+
+
   }
 
   // Initialize everything
@@ -235,4 +217,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Event listener to load content on click of refresh button
   refreshButton.addEventListener('click', loadContent);
+
+  themeToggle.addEventListener('click', () => {
+    const html = document.documentElement;
+    const currentTheme = html.getAttribute('data-theme');
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    html.setAttribute('data-theme', newTheme);
+    // Force redraw of canvas
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  });
 })

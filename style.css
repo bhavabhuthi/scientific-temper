@@ -69,7 +69,15 @@ body {
 }
 @media screen and (max-width: 1024px) {
   .container {
-    width: 90%;
+    width: 55%;
+  }
+
+  .titleContainer {
+    padding: 5px;
+  }
+
+  .titleContainer h1 {
+    font-size: 1rem;
   }
 }
 
@@ -125,25 +133,41 @@ body {
   }
 }
 
-.type-text {
-  margin-right: 10px;
-}
-
-.thinking-emoji {
-  /* Adjust size as needed */
-  font-size: 1.2em;
-}
-
 .info {
   overflow-wrap: break-word;
-  margin-bottom: 20px;
-  padding: 10px;
+  margin-bottom: 10px;
+  /* padding: 10px; */
   width: 100%;
   font-weight: bold;
   display: flex;
   gap: 10px;
-  justify-content: center;
+  /* justify-content: center; */
   align-items: center;
+  justify-content: space-between;
+}
+
+.type-text {
+  font-size: 1.5em;
+}
+
+.refreshButton {
+  margin: 0;
+  /* margin-left: auto; */
+  border: none;
+  background: none;
+  font-size: 1.5em;
+  cursor: pointer;
+}
+
+.themeToggleButton {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  z-index: 1000;
 }
 
 .description,
@@ -170,16 +194,4 @@ body {
   transition: background-color 0.3s ease, border-color 0.3s ease,
     color 0.3s ease;
   margin: 0.5rem 0;
-}
-
-.refreshButton {
-  position: absolute;
-  top: 5px;
-  right: 5px;
-  border: none;
-  background: none;
-  font-size: 1.5em;
-  cursor: pointer;
-  padding: 0;
-  margin: 0;
 }
