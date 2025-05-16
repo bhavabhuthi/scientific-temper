@@ -1,30 +1,61 @@
-@font-face {
-  font-family: "Proxima Nova";
-  src: url("fonts/proxima-nova-regular.woff2") format("woff2"),
-    url("fonts/proxima-nova-regular.woff") format("woff");
-  font-weight: normal;
-  font-style: normal;
+:root {
+  --particle-color: #ff868610;
+  --particle-connection: #1a1a1a;
+  --background-color: #f0f0f0;
+  --container-bg: white;
+  --text-color: black;
+
+  /* Gradient text colors */
+  --gradient-start: #ff9a9e;
+  --gradient-end: #fad0c4;
+  --gradient-fallback: #ff6b6b;
+
+  /* Example box colors */
+  --example-bg: #f8f9fa;
+  --example-border: var(--gradient-start);
+  --example-text: #222;
+}
+
+/* Dark theme colors */
+[data-theme="dark"] {
+  --particle-color: #4fc3f7;
+  --particle-connection: #4fc3f733;
+  --background-color: #1a1a1a;
+  --container-bg: #2d2d2d;
+  --text-color: #ffffff;
+
+  /* Dark theme gradient colors */
+  --gradient-start: #4fc3f7;
+  --gradient-end: #abe3fd;
+  --gradient-fallback: #4fc3f7;
+
+  /* Dark theme example box */
+  --example-bg: #2a2a2a;
+  --example-border: var(--gradient-start);
+  --example-text: #f0f0f0;
 }
 
 body {
+  font-family: "Albert Sans", sans-serif;
   margin: 0;
   display: flex;
   justify-content: center;
-  font-family: "Proxima Nova", sans-serif;
   align-items: center;
   font-weight: normal;
   min-height: 100vh;
-  background-color: #f0f0f0; /* Light gray background for the body */
+  background-color: var(--background-color);
   box-sizing: border-box;
+  color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .container {
   z-index: 10;
-  background-color: white;
-  color: black;
+  background-color: var(--container-bg);
+  color: var(--text-color);
   padding: 20px;
   /* max-width: 800px; */
-  width: 1000px;
+  width: 60%;
   box-sizing: border-box;
   border-radius: 10px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -34,10 +65,19 @@ body {
   justify-content: flex-start;
   align-items: center;
   position: absolute;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 @media screen and (max-width: 1024px) {
   .container {
-    width: 90%;
+    width: 55%;
+  }
+
+  .titleContainer {
+    padding: 5px;
+  }
+
+  .titleContainer h1 {
+    font-size: 1rem;
   }
 }
 
@@ -53,25 +93,34 @@ body {
   font-size: 60px;
   overflow-wrap: break-word;
   text-shadow: 0 2px 10px rgba(255, 154, 158, 0.2);
+  animation: fadeIn 0.8s ease-in-out;
 
   /* Fallback solid color */
-  color: #ff6b6b;
+  color: var(--gradient-fallback);
 
-  /* Safari/Chrome (WebKit) */
-    background: -webkit-linear-gradient(left, #ff9a9e, #fad0c4);
+  /* Gradient text for WebKit browsers (Safari, Chrome) */
+  background: -webkit-linear-gradient(
+    left,
+    var(--gradient-start),
+    var(--gradient-end)
+  );
   -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    text-fill-color: transparent;
-    
-  /* Firefox */
-  background: linear-gradient(to right, #ff9a9e, #fad0c4);
-  -moz-background-clip: text;
-  -moz-text-fill-color: transparent;
+  -webkit-text-fill-color: transparent;
 
-  /* Modern browsers (Chrome ≥16, Firefox ≥49, Edge) */
+  /* Standard gradient text */
+  background: linear-gradient(
+    to right,
+    var(--gradient-start),
+    var(--gradient-end)
+  );
   background-clip: text;
-  animation: fadeIn 0.8s ease-in-out;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  /* Ensure text remains visible in all browsers */
+  color: var(--gradient-fallback);
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
 }
 
 @keyframes fadeIn {
@@ -83,24 +132,41 @@ body {
   }
 }
 
-.type-text {
-  margin-right: 10px;
-}
-
-.thinking-emoji {
-  font-size: 1.2em; /* Adjust size as needed */
-}
-
 .info {
   overflow-wrap: break-word;
-  margin-bottom: 20px;
-  padding: 10px;
+  margin-bottom: 10px;
+  /* padding: 10px; */
   width: 100%;
   font-weight: bold;
   display: flex;
   gap: 10px;
-  justify-content: center;
+  /* justify-content: center; */
   align-items: center;
+  justify-content: space-between;
+}
+
+.type-text {
+  font-size: 1.5em;
+}
+
+.refreshButton {
+  /* margin: 0; */
+  margin-left: auto;
+  border: none;
+  background: none;
+  font-size: 1.5em;
+  cursor: pointer;
+}
+
+.themeToggleButton {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  z-index: 1000;
 }
 
 .description,
@@ -116,12 +182,15 @@ body {
 
 .example {
   font-style: italic;
-  border-left: 3px solid #ff9a9e; /* Gradient accent color */
-  padding-left: 1rem;
-  color: #222; /* Darker for emphasis */
+  border-left: 3px solid var(--example-border);
+  padding: 1rem 1rem 1rem 1.5rem;
+  color: var(--example-text);
   overflow-wrap: break-word;
-  background: #f8f9fa; /* Light gray background */
+  background: var(--example-bg);
   border-radius: 10px;
   box-sizing: border-box;
   width: 100%;
+  transition: background-color 0.3s ease, border-color 0.3s ease,
+    color 0.3s ease;
+  margin: 0.5rem 0;
 }

@@ -1,48 +1,75 @@
+let ctx, numberOfParticles = 75, particlesArray = [];
+
+
+//----------------------------------------------------------------------------------------------------
+// Main DOM event listener
+//----------------------------------------------------------------------------------------------------
 document.addEventListener('DOMContentLoaded', () => {
+  // Query Elements once to avoid multiple queries
+  const titleElement = document.querySelector('.title-text');
+  const typeElement = document.querySelector('.type-text');
+  const exampleElement = document.querySelector('.example');
+  const descriptionElement = document.querySelector('.description');
+  const refreshButton = document.getElementById('refreshButton')
+
+  const themeToggle = document.getElementById('themeToggle');
+
   // Canvas setup for particle effects
   const canvas = document.getElementById('particleCanvas');
-  const ctx = canvas.getContext('2d');
+  ctx = canvas.getContext('2d');
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
 
-  let particlesArray = [];
-  const numberOfParticles = 150;
   const mouse = {
     x: null,
     y: null,
     radius: 150,
   };
-  window.addEventListener('mousemove', (event) => {
-    mouse.x = event.x;
-    mouse.y = event.y;
-  });
 
-  // Particle class
+
+  //----------------------------------------------------------------------------------------------------
+  // Particle Class
+  //----------------------------------------------------------------------------------------------------
   class Particle {
     constructor(x, y, size, speedX, speedY, color) {
-        this.x = x;
-        this.y = y;
-        this.baseX = x;
-        this.length = Math.random() * 2 + 1;
-        this.baseY = y;
-        this.density = Math.random() * 40 + 1;
-        this.color = color;
-        this.opacity = Math.random() * 0.7 + 0.3;
-        this.speedX = (Math.random() * 4 - 2) * 0.2; // Increased speed
-        this.speedY = (Math.random() * 4 - 2) * 0.2; // Increased speed
+      this.x = x;
+      this.y = y;
+      this.baseX = x;
+      this.length = Math.random() * 2 + 1;
+      this.baseY = y;
+      this.density = Math.random() * 40 + 1;
+      this.color = color;
+      this.opacity = Math.random() * 0.7 + 0.3;
+      this.speedX = (Math.random() * 4 - 2) * 0.2; // Increased speed
+      this.speedY = (Math.random() * 4 - 2) * 0.2; // Increased speed
+    }
+
+    // Draw the particle
+    draw() {
+      ctx.beginPath();
+      ctx.moveTo(this.x, this.y);
+      ctx.lineTo(this.x + this.length, this.y + this.length);
+
+      // Use CSS variable for particle color with opacity
+      const particleColor = getComputedStyle(document.documentElement)
+        .getPropertyValue('--particle-color').trim();
+
+      // Convert hex to rgba if needed
+      if (particleColor.startsWith('#')) {
+        const r = parseInt(particleColor.slice(1, 3), 16);
+        const g = parseInt(particleColor.slice(3, 5), 16);
+        const b = parseInt(particleColor.slice(5, 7), 16);
+        ctx.strokeStyle = `rgba(${r}, ${g}, ${b}, ${this.opacity})`;
+      } else {
+        // If it's already rgb/rgba, just append the opacity
+        ctx.strokeStyle = particleColor.replace(')', `, ${this.opacity})`).replace('rgb', 'rgba');
       }
 
-    draw() {
-      ctx.beginPath(); 
-      ctx.moveTo(this.x, this.y); 
-      ctx.lineTo(this.x + this.length, this.y + this.length); 
-      ctx.strokeStyle = `hsl(${this.color}, 100%, 50%, ${this.opacity})`;
       ctx.stroke();
     }
-    update() {
-      // Check for mouse collision and adjust position
 
-      //mouse reaction
+    // Update the particle based on mouse position
+    update() {
       let dx = mouse.x - this.x;
       let dy = mouse.y - this.y;
       let distance = Math.sqrt(dx * dx + dy * dy);
@@ -72,16 +99,20 @@ document.addEventListener('DOMContentLoaded', () => {
       this.x += this.speedX;
       this.y += this.speedY;
 
-      if (this.y + this.length > canvas.height || this.y - this.length < 0) {this.speedY = -this.speedY * 0.9;}
-      if (this.x + this.length > canvas.width || this.x - this.length < 0) {this.speedX = -this.speedX * 0.9;}
+      if (this.y + this.length > canvas.height || this.y - this.length < 0) { this.speedY = -this.speedY * 0.9; }
+      if (this.x + this.length > canvas.width || this.x - this.length < 0) { this.speedX = -this.speedX * 0.9; }
 
-           this.draw();
-
+      this.draw();
     }
-  }  
+  }
 
 
-function init() {
+  //----------------------------------------------------------------------------------------------------
+  // Particle Functions
+  //----------------------------------------------------------------------------------------------------
+
+  // Function to initialize particles
+  function init() {
     for (let i = 0; i < numberOfParticles * 2; i++) {
       const x = Math.random() * (canvas.width - 100) + 50 + Math.random() * 20 - 10;
       const y = Math.random() * (canvas.height - 100) + 50 + Math.random() * 20 - 10;
@@ -89,10 +120,18 @@ function init() {
       const color = `${Math.random() * 360}, 100%, 50%`;
       particlesArray.push(new Particle(x, y, 0, 0, 0, color));
     }
-  }  
-  
+  }
+
+  // Helper function to get CSS variable value
+  function getCssVar(variable) {
+    return getComputedStyle(document.documentElement).getPropertyValue(variable).trim();
+  }
+
+  // Function to connect particles
   function connect() {
     let opacity = 1;
+    const connectionColor = getCssVar('--particle-connection');
+
     for (let a = 0; a < particlesArray.length; a++) {
       for (let b = a; b < particlesArray.length; b++) {
         let distance = Math.sqrt(
@@ -101,7 +140,12 @@ function init() {
         );
         if (distance < 150) {
           opacity = 1 - distance / 300;
-          ctx.strokeStyle = `rgba(221,221,221,${opacity})`; // Light gray connection lines
+          // Extract RGB values from the CSS variable and apply opacity
+          const rgba = connectionColor.startsWith('rgba') ?
+            connectionColor :
+            `${connectionColor}${Math.round(opacity * 1000) / 1000}`.replace(')', `, ${opacity})`);
+
+          ctx.strokeStyle = rgba;
           ctx.lineWidth = 1;
           ctx.beginPath();
           ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
@@ -111,8 +155,8 @@ function init() {
       }
     }
   }
-  init();
 
+  // Function to animate particles
   function animate() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     for (let i = 0; i < particlesArray.length; i++) {
@@ -122,8 +166,55 @@ function init() {
     connect();
     requestAnimationFrame(animate);
   }
+
+  //----------------------------------------------------------------------------------------------------
+  // Content Function
+  //----------------------------------------------------------------------------------------------------
+
+  // Function to load content from JSON module
+  function loadContent() {
+    // Function to load content from JSON
+    fetch('jsonData.json')
+      .then(response => response.json())
+      .then(data => {
+        jsonData = data;
+        const randomIndex = Math.floor(Math.random() * jsonData.length);
+        const { title, type, example, description } = jsonData[randomIndex];
+
+        titleElement.textContent = title;
+        typeElement.textContent = type;
+        exampleElement.textContent = example;
+        descriptionElement.textContent = description;
+      })
+  }
+
+  // Initialize background particle animation
+  init();
   animate();
 
+  // Load content on initial page load
+  loadContent();
+
+  // Theme setup
+  try {
+    const savedTheme = localStorage.getItem('extensionTheme');
+    if (savedTheme) {
+      document.documentElement.setAttribute('data-theme', savedTheme);
+    } else {
+      document.documentElement.setAttribute('data-theme', 'light');
+    }
+  } catch (error) {
+    document.documentElement.setAttribute('data-theme', 'light');
+    console.error('Error loading saved theme:', error);
+  }
+
+  // Event Listener to update mouse position
+  window.addEventListener('mousemove', (event) => {
+    mouse.x = event.x;
+    mouse.y = event.y;
+  });
+
+  // Event Listener to resize canvas on window resize
   window.addEventListener('resize', () => {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
@@ -131,17 +222,22 @@ function init() {
     init();
   });
 
+  // Event listener to load content on click of refresh button
+  refreshButton.addEventListener('click', loadContent);
 
-  fetch('jsonData.json')
-    .then(response => response.json())
-    .then(data => {
-      const randomIndex = Math.floor(Math.random() * data.length);
-      const randomItem = data[randomIndex];
+  // Event listener to toggle theme
+  themeToggle.addEventListener('click', () => {
+    const html = document.documentElement;
+    const currentTheme = html.getAttribute('data-theme');
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
 
-      document.querySelector('.title-text').textContent = randomItem.title;
-      document.querySelector('.type-text').textContent = randomItem.type;
-      document.querySelector('.example').textContent = randomItem.example;
-      document.querySelector('.description').textContent = randomItem.description;
-    })
-    .catch(error => console.error('Error loading data:', error));
-});
+    // Set the new theme
+    html.setAttribute('data-theme', newTheme);
+
+    // Save the new theme to localStorage
+    localStorage.setItem('extensionTheme', newTheme);
+
+    // Force redraw of canvas
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  });
+})

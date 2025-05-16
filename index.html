@@ -1,32 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.bunny.net/css?family=albert-sans:400,700"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
     <title>Scientific Temper</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <canvas id="particleCanvas"></canvas>
-    <div class="container">
-
-        <div class="info">
-            <div id="think" class="thinking-emoji">🤔</div>
-            <div id="type" class="type-text"></div>
-        </div>
-
-        <div class="titleContainer">
-            <h1 id="title" class="title-text"></h1>
-        </div>
-
-        <div id="desc" class="description">
-        </div>
-        <div id="example" class="example"></div>
-        <script src="script.js"></script>
+    <div class="themeToggle">
+      <button
+        id="themeToggle"
+        class="themeToggleButton"
+        title="Toggle dark/light mode"
+      >
+        🌓
+      </button>
     </div>
+    <div class="container">
+      <div class="info">
+        <div id="type" class="type-text"></div>
+        <button id="refreshButton" class="refreshButton" title="See another">
+          🤔
+        </button>
+      </div>
 
-</body>
+      <div class="titleContainer">
+        <h1 id="title" class="title-text"></h1>
+      </div>
 
+      <div id="desc" class="description"></div>
+      <div id="example" class="example"></div>
+      <script src="script.js"></script>
+    </div>
+  </body>
 </html>
